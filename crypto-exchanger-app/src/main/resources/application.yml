@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: cryptocurrency-exchanger
+  datasource:
+    url: jdbc:h2:mem:testdb
+  jpa:
+    generate-ddl: true
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      client-id: crypto-exchanger
+      group-id: crypto-exchanger
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        "[spring.json.trusted.packages]": testproject.cryptoexchanger.dto
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "oidc-client"
+              client-secret: "{noop}secret"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+                - "client_credentials"
+                - "password"
+              redirect-uris:
+                - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
+              post-logout-redirect-uris:
+                - "http://127.0.0.1:8080/"
+              scopes:
+                - "openid"
+                - "profile"
+                - "read"
+                - "write"
+            require-authorization-consent: true
+
+app:
+  services:
+    crypto-exchanger-mock:
+      url: localhost:8081
+  order-matching-handler:
+    cron: "*/10 * *  * * ?" # every 10 seconds
+  currency-rate:
+    topic: currency-rate
+
+logging:
+  level:
+    org.apache.kafka.clients.NetworkClient: ERROR

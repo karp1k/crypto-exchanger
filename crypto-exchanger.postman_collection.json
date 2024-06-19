@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "b69c2d5d-0828-4e2e-a040-f7fa4aa1434e",
+		"name": "crypto-exchanger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5233389"
+	},
+	"item": [
+		{
+			"name": "Get currency pairs",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "user1",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/v1/currency-rate/pairs"
+			},
+			"response": []
+		},
+		{
+			"name": "1. Register new user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"doomgay\",\r\n    \"email\": \"doomslayer@hell.com\",\r\n    \"password\": \"666\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/user"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Login via OAuth 2.0 ",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"username": "johndoe",
+						"password": "q123",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "user1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "q123",
+							"type": "text"
+						}
+					]
+				},
+				"url": "localhost:8080/oauth/token"
+			},
+			"response": []
+		},
+		{
+			"name": "3. View available wallets",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"username": "johndoe",
+						"password": "q123",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/v1/wallet"
+			},
+			"response": []
+		},
+		{
+			"name": "4. View wallet balance",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "666",
+						"username": "doomgay",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/v1/wallet/Wallet 1"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Deposit into wallet",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletAddressId\": 1,\r\n    \"amount\": \"100\",\r\n    \"currencyCode\": \"BTC\",\r\n    \"cardDetailsDto\": {\r\n        \"cardNumber\": 12345,\r\n        \"cardHolder\": \"Shrek\",\r\n        \"cvcCode\": 234\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/account/deposit"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Deposit into wallet to another account",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "666",
+						"username": "doomgay",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletAddressId\": 2,\r\n    \"amount\": \"200\",\r\n    \"currencyCode\": \"USDT\",\r\n    \"cardDetailsDto\": {\r\n        \"cardNumber\": 12345,\r\n        \"cardHolder\": \"Fiona\",\r\n        \"cvcCode\": 234\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/account/deposit"
+			},
+			"response": []
+		},
+		{
+			"name": "6. Withdraw from wallet",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletAddressId\": 1,\r\n    \"amount\": \"10\",\r\n    \"currencyCode\": \"BTC\",\r\n    \"cardDetailsDto\": {\r\n        \"cardNumber\": 12345\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/account/withdraw"
+			},
+			"response": []
+		},
+		{
+			"name": "7. Transfer from wallet to wallet",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fromWalletAddressId\": 2,\r\n    \"toWalletAddressId\": 1,\r\n    \"amount\": \"10\",\r\n    \"currencyCode\": \"BTC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/account/transfer"
+			},
+			"response": []
+		},
+		{
+			"name": "8. Place BUY order",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": \"50\",\r\n    \"quantity\": \"2\",\r\n    \"baseCurrencyCode\": \"BTC\",\r\n    \"quoteCurrencyCode\": \"USDT\",\r\n    \"direction\": \"BUY\",\r\n    \"walletAddressId\": \"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/order"
+			},
+			"response": []
+		},
+		{
+			"name": "9. Place SELL order",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": \"50\",\r\n    \"quantity\": \"2\",\r\n    \"baseCurrencyCode\": \"BTC\",\r\n    \"quoteCurrencyCode\": \"USDT\",\r\n    \"direction\": \"SELL\",\r\n    \"walletAddressId\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/v1/order"
+			},
+			"response": []
+		},
+		{
+			"name": "10. View user's orders",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/v1/order"
+			},
+			"response": []
+		},
+		{
+			"name": "11. View order book (active orders)",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/v1/order/book"
+			},
+			"response": []
+		},
+		{
+			"name": "12. View user's transaction history",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": {
+						"password": "q123",
+						"username": "johndoe",
+						"client_authentication": "header",
+						"clientSecret": "secret",
+						"clientId": "oidc-client",
+						"accessTokenUrl": "localhost:8080/oauth2/token",
+						"grant_type": "password_credentials",
+						"addTokenTo": "header",
+						"scope": "openid profile read write"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/v1/transaction/history"
+			},
+			"response": []
+		},
+		{
+			"name": "deposit mock payment provider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": \"100.1\",\r\n    \"cardNumber\": \"1235\",\r\n    \"cardHolder\": \"Shrek\",\r\n    \"cvcCode\": \"328\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/api/v1/deposit"
+			},
+			"response": []
+		},
+		{
+			"name": "withdraw mock payment provider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": \"100.1\",\r\n    \"cardNumber\": \"1235\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/api/v1/withdraw"
+			},
+			"response": []
+		}
+	]
+}

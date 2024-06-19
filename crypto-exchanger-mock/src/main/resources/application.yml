@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: cryptocurrency-exchanger-mock
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+app:
+  currency-rate:
+    producer:
+      cron: "*/10 * *  * * ?" # every 10 seconds
+    topic: currency-rate

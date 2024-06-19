@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="mock" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="crypto-exchanger.crypto-exchanger-mock.main" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="testproject.cryptoexchanger.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="testproject.cryptoexchanger.Application" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
